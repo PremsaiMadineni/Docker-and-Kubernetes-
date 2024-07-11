@@ -1,23 +1,14 @@
 1.	Prepare sample dockerfile to print hello-kubernetes Message
-
-docker images  
- 
-
-Docker ps -a   -to check docker files
- 
-
-Vi Dockerfile  
+ -> docker images  
+ -> Docker ps -a   -to check docker files
+ -> Vi Dockerfile  
 FROM ubuntu
 MAINTAINER premsai <madinenipremsai65@gmail.com>
 RUN apt-get update
 CMD [“echo”, “Hello world…. From my first docker file”]
-
-docker build .
- 
-
-docker images
-
-docker run <imagetag>
+-> docker build .
+ -> docker images
+-> docker run <imagetag>
  
 
 
