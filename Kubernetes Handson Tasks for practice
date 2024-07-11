@@ -75,6 +75,83 @@ by using this command we can see all pods and namespaces:   kubectl get all -A
 
 Deploy->rs->pods
 --------------------------------------------------------------------------------------------
+-->expose nginx service with cluster ip service
+
+pod  -> deployment service
+Accessing networking:-
+curl -L http://192.168.0.7:80/<path>
+
+Create service yaml file :-
+www.kubernets service
+	vi service.yml
+	apiVersion: v1
+	kind: Service
+	metadata:
+	  name: my-service
+	spec:
+	  type: NodePort
+	  selector:
+	    app.kubernetes.io/name: nginx
+	  ports:
+	    - port: 80
+	      targetPort: 80
+	      nodePort: 30007
+
+->kubectl apply -f service.yml
+By using this command we can see entry traffic: -
+-> kubectl get svc -v=9
+ -> kubectl get svc
+To check ip address : hostname -i
+-> Curl -L  http://ipaddress:port
+To access port eidt svc :-  kubectl svc edit <name>
+-> kubectl get svc
+
+----------------------------------------------------------------------------------------------------------
+--> deploy ingress for nginx app 
+
+www.kubernets ingress
+	vi ingress.yml
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-example
+spec:
+  rules:
+  - host: "foo.bar.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/bar"
+        backend:
+          service:
+            name: service1
+            port:
+              number: 80
+
+to check service :- kubectl get svc
+-> kubectl apply -f ingress.yml
+-> kubectl get ingress
+Note: kubectl created but address is empty
+Now we create ingress controller 
+www. ambassador ingress controller
+
+1.	First, clone the Starter Kit repository and change directory to your local copy.
+
+      git clone https://github.com/digitalocean/Kubernetes-Starter-Kit-Developers.git
+      cd Kubernetes-Starter-Kit-Developers
+
+-> kubectl get pods -A | grep nginx
+To check logs:
+-> kubectl logs ingress-nginx-controller-9b8f55cc5-nbb4x -n ingress-nginx
+
+---------------------------------------------------------------------------------------------------------------
+
+ 
+
+ 
+
+
 
 
 
